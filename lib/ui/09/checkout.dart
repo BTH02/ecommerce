@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../modal/data.dart';
@@ -76,7 +76,9 @@ class _CheckOutState extends State<CheckOut> {
                               left: Radius.circular(20)),
                           border: Border.all(color: Colors.black, width: 0.5),
                         ),
-                        child: const Center(child: Text('CHANGE')),
+                        child: GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, Routes.ship),
+                            child: const Center(child: Text('CHANGE'))),
                       )
                     ],
                   ),
@@ -212,10 +214,14 @@ class _CheckOutState extends State<CheckOut> {
             width: 250,
             height: 50,
             decoration: const BoxDecoration(
-              color: Colors.brown,
+                color: Colors.brown,
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(20), right: Radius.circular(20))),
-            child: const Center(child: Text('Continue to Payment',style: TextStyle(color: Colors.white),)),
+            child: const Center(
+                child: Text(
+              'Continue to Payment',
+              style: TextStyle(color: Colors.white),
+            )),
           ),
         ),
       ),

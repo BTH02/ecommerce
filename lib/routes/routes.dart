@@ -4,6 +4,7 @@ import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/06/productdetail.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
 import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:ecommerce/ui/09/ship.dart';
 import 'package:ecommerce/ui/modal/product.dart';
 import 'package:ecommerce/ui/pages/createaccount.dart';
 import 'package:ecommerce/ui/pages/profile.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String productDetail = '/productDetail';
   static const String onboard = '/onboard';
   static const String checkout = '/checkout';
+  static const String ship = '/ship';
 
   static Map<String, Widget Function(dynamic context)> routes = {
     home: (context) => const HomePage(),
@@ -42,6 +44,7 @@ class Routes {
       final arg = (ModalRoute.of(context)?.settings.arguments ?? Product.pure()) as Product;
       return ProductDetail(productItem: arg);
     },
-    checkout:(context) => const CheckOut()
+    checkout:(context) => const CheckOut(),
+    ship:(context) => const ShippingAddress(),
   };
 }
