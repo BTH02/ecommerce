@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../routes/routes.dart';
+
 class OnboardingTwo extends StatefulWidget {
-  const OnboardingTwo({Key? key}) : super(key: key);
+  const OnboardingTwo({super.key});
 
   @override
   State<OnboardingTwo> createState() => _OnboardingTwoState();
@@ -12,9 +14,14 @@ class _OnboardingTwoState extends State<OnboardingTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [Container(
-            margin: const EdgeInsets.only(right: 20),
-            child: const Text('Skip'))],
+        actions: [
+          Container(
+              margin: const EdgeInsets.only(right: 20),
+              child: TextButton(
+                child: const Text('Skip'),
+                onPressed: () => Navigator.pushNamed(context, Routes.signIn),
+              ))
+        ],
       ),
       body: const Column(
         children: [
@@ -25,7 +32,9 @@ class _OnboardingTwoState extends State<OnboardingTwo> {
           Column(
             children: [Text('Seamless Shopping'), Text('Experience')],
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Column(
             children: [
               Text('Lorem ipsum dolor sit amet, consectetur'),
@@ -34,7 +43,6 @@ class _OnboardingTwoState extends State<OnboardingTwo> {
           )
         ],
       ),
-    );;
+    );
   }
 }
-

@@ -1,8 +1,4 @@
-import 'package:ecommerce/ui/pages/createaccount.dart';
-import 'package:ecommerce/ui/pages/verifycode.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../routes/routes.dart';
 
@@ -24,7 +20,8 @@ class _SignInState extends State<SignIn> {
               height: 100,
             ),
             const Center(
-              child: Text('Sign In',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              child: Text('Sign In',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ),
             const SizedBox(
               height: 10,
@@ -40,9 +37,11 @@ class _SignInState extends State<SignIn> {
               height: 10,
             ),
             _buildInputPass(),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) =>const VerifyCode())),
+              onTap: () => Navigator.pushNamed(context, Routes.verycode),
               child: Container(
                 margin: const EdgeInsets.only(right: 15),
                 child: const Row(
@@ -62,8 +61,10 @@ class _SignInState extends State<SignIn> {
             const SizedBox(
               height: 35,
             ),
-            _buildSignIn(),
-            const SizedBox(height: 40,),
+            const BuildSignIn(),
+            const SizedBox(
+              height: 40,
+            ),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,31 +85,54 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            const SizedBox(height: 40,),
+            const SizedBox(
+              height: 40,
+            ),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(onPressed: () {
-
-                  }, icon: Image.asset('images/facebook.png',height: 40,width: 40,)),
-                  IconButton(onPressed: () {
-
-                  }, icon: Image.asset('images/google.png',height: 40,width: 40,)),
-                  IconButton(onPressed: () {
-
-                  }, icon: Image.asset('images/twitter.png',height: 40,width: 40,)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        'images/facebook.png',
+                        height: 40,
+                        width: 40,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        'images/google.png',
+                        height: 40,
+                        width: 40,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        'images/twitter.png',
+                        height: 40,
+                        width: 40,
+                      )),
                 ],
               ),
             ),
-            const SizedBox(height: 25,),
+            const SizedBox(
+              height: 25,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Don't have an account?"),
-                TextButton(onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccount(),));
-                }, child: const Text('Sign Up',style: TextStyle(color: Colors.red,decoration: TextDecoration.underline,decorationColor: Colors.red),))
+                TextButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Routes.createAccount),
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.red),
+                    ))
               ],
             ),
           ],
@@ -147,7 +171,7 @@ Widget _buildInputEmail() {
 Widget _buildInputPass() {
   return Container(
     margin: const EdgeInsets.only(left: 15, right: 15),
-    child:   Column(
+    child: Column(
       children: [
         const Row(
           children: [
@@ -160,10 +184,12 @@ Widget _buildInputPass() {
         TextField(
           decoration: InputDecoration(
             suffixIcon: IconButton(
-              onPressed: () {
-
-              },
-              icon: Image.asset('images/hidepass.png',width: 30,height: 30,),
+              onPressed: () {},
+              icon: Image.asset(
+                'images/hidepass.png',
+                width: 30,
+                height: 30,
+              ),
             ),
             hintText: '**********',
             border: const OutlineInputBorder(
@@ -176,18 +202,27 @@ Widget _buildInputPass() {
   );
 }
 
-Widget _buildSignIn() {
-  return Container(
-    width: 330,
-    height: 60,
-    decoration: const BoxDecoration(color: Colors.brown,
-        borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(30), left: Radius.circular(30))),
-    child: const Center(
-      child: Text(
-        'Sign In',
-        style: TextStyle(color: Colors.white),
+class BuildSignIn extends StatelessWidget {
+  const BuildSignIn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, Routes.buildbottom),
+      child: Container(
+        width: 330,
+        height: 60,
+        decoration: const BoxDecoration(
+            color: Colors.brown,
+            borderRadius: BorderRadius.horizontal(
+                right: Radius.circular(30), left: Radius.circular(30))),
+        child: const Center(
+          child: Text(
+            'Sign In',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

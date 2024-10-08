@@ -1,4 +1,4 @@
-import 'package:ecommerce/ui/pages/sigin.dart';
+import 'package:ecommerce/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -122,13 +122,7 @@ class _CreateAccountState extends State<CreateAccount> {
             children: [
               const Text("Already have an account?"),
               TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignIn(),
-                        ));
-                  },
+                  onPressed: () => Navigator.pushNamed(context,Routes.signIn),
                   child: const Text(
                     'Sign In',
                     style: TextStyle(

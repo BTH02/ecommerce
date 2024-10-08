@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -13,20 +11,23 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black38),
-                borderRadius: const BorderRadius.all(Radius.circular(50))),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
-        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 60,),
+              Row(
+                children: [
+                  const SizedBox(width: 20,),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(50)),
+                        border: Border.all(width: 1, color: Colors.black)),
+                    child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back)),
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 70,
               ),
@@ -50,7 +51,7 @@ class _ProfileState extends State<Profile> {
                 child: Center(
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 170,
                         height: 170,
                         child: Image.asset('images/avata.png'),
@@ -61,11 +62,11 @@ class _ProfileState extends State<Profile> {
                         width: 30,
                         height: 30,
                         child: Container(
-                          child: Image.asset('images/penedit.png'),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(width: 2,color: Colors.black),
-                            borderRadius: BorderRadius.all(Radius.circular(40)),),
+                            borderRadius: const BorderRadius.all(Radius.circular(40)),),
+                          child: Image.asset('images/penedit.png'),
                         ),
                       ),
                     ],
