@@ -11,6 +11,8 @@ import 'package:ecommerce/ui/pages/sigin.dart';
 import 'package:ecommerce/ui/pages/verifycode.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/09/checkout.dart';
+
 class Routes {
   const Routes._();
 
@@ -24,6 +26,7 @@ class Routes {
   static const String myCart = '/myCart';
   static const String productDetail = '/productDetail';
   static const String onboard = '/onboard';
+  static const String checkout = '/checkout';
 
   static Map<String, Widget Function(dynamic context)> routes = {
     home: (context) => const HomePage(),
@@ -38,6 +41,7 @@ class Routes {
     productDetail:(context) {
       final arg = (ModalRoute.of(context)?.settings.arguments ?? Product.pure()) as Product;
       return ProductDetail(productItem: arg);
-    }
+    },
+    checkout:(context) => const CheckOut()
   };
 }
