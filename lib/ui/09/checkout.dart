@@ -101,7 +101,7 @@ class _CheckOutState extends State<CheckOut> {
                       SizedBox(
                           width: 30,
                           height: 30,
-                          child: Image.asset('images/ship.png')),
+                          child: Image.asset('images/shipbox.png')),
                       const SizedBox(
                         width: 5,
                       ),
@@ -127,7 +127,9 @@ class _CheckOutState extends State<CheckOut> {
                               left: Radius.circular(20)),
                           border: Border.all(color: Colors.black, width: 0.5),
                         ),
-                        child: const Center(child: Text('CHANGE')),
+                        child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, Routes.chooseship),
+                            child: const Center(child: Text('CHANGE'))),
                       )
                     ],
                   ),

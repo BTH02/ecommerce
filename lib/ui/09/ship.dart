@@ -94,7 +94,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
   }
 }
 
-Widget _buildShip(String nameadr) {
+Widget _buildShip(String nameAdr) {
   return Column(
     children: [
       const SizedBox(
@@ -104,7 +104,7 @@ Widget _buildShip(String nameadr) {
         children: [
           const Icon(Icons.location_on),
           Text(
-            nameadr,
+            nameAdr,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
