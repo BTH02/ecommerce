@@ -71,6 +71,7 @@ Widget _buildScroll(String text) {
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.black),
           borderRadius: const BorderRadius.horizontal(
-              right: Radius.circular(20), left: Radius.circular(20))),
+              right: Radius.circular(20), left: Radius.circular(20))
+      ),
       child: Center(child: Text(text)));
 }

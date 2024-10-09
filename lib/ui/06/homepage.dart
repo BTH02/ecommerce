@@ -1,8 +1,6 @@
 import 'package:ecommerce/ui/06/producthome.dart';
 import 'package:ecommerce/ui/modal/product.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
