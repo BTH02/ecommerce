@@ -77,7 +77,8 @@ class _CheckOutState extends State<CheckOut> {
                           border: Border.all(color: Colors.black, width: 0.5),
                         ),
                         child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(context, Routes.ship),
+                            onTap: () =>
+                                Navigator.pushNamed(context, Routes.ship),
                             child: const Center(child: Text('CHANGE'))),
                       )
                     ],
@@ -128,7 +129,8 @@ class _CheckOutState extends State<CheckOut> {
                           border: Border.all(color: Colors.black, width: 0.5),
                         ),
                         child: GestureDetector(
-                            onTap: () => Navigator.pushNamed(context, Routes.chooseship),
+                            onTap: () =>
+                                Navigator.pushNamed(context, Routes.chooseship),
                             child: const Center(child: Text('CHANGE'))),
                       )
                     ],
@@ -212,18 +214,21 @@ class _CheckOutState extends State<CheckOut> {
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(15), topLeft: Radius.circular(15))),
         child: Center(
-          child: Container(
-            width: 250,
-            height: 50,
-            decoration: const BoxDecoration(
-                color: Colors.brown,
-                borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(20), right: Radius.circular(20))),
-            child: const Center(
-                child: Text(
-              'Continue to Payment',
-              style: TextStyle(color: Colors.white),
-            )),
+          child: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, Routes.payment),
+            child: Container(
+              width: 250,
+              height: 50,
+              decoration: const BoxDecoration(
+                  color: Colors.brown,
+                  borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(20), right: Radius.circular(20))),
+              child: const Center(
+                  child: Text(
+                'Continue to Payment',
+                style: TextStyle(color: Colors.white),
+              )),
+            ),
           ),
         ),
       ),

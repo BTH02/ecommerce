@@ -4,6 +4,7 @@ import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/06/productdetail.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
 import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:ecommerce/ui/09/payment.dart';
 import 'package:ecommerce/ui/09/ship.dart';
 import 'package:ecommerce/ui/09/shipping.dart';
 import 'package:ecommerce/ui/modal/product.dart';
@@ -31,6 +32,7 @@ class Routes {
   static const String checkout = '/checkout';
   static const String ship = '/ship';
   static const String chooseship = '/chooseship';
+  static const String payment = '/payment';
 
   static Map<String, Widget Function(dynamic context)> routes = {
     home: (context) => const HomePage(),
@@ -50,5 +52,6 @@ class Routes {
     checkout: (context) => const CheckOut(),
     ship: (context) => const ShippingAddress(),
     chooseship: (context) => const ChooseShip(),
+    payment:(context) => const Payment(),
   };
 }
