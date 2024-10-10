@@ -1,3 +1,5 @@
+import 'package:ecommerce/ui/06/producthome.dart';
+import 'package:ecommerce/ui/modal/product.dart';
 import 'package:flutter/material.dart';
 class WishList extends StatefulWidget {
   const WishList({super.key});
@@ -56,7 +58,7 @@ class _WishListState extends State<WishList> {
                   ),
                 ),
               ),
-              // const ProductHome(),
+              ProductHome(product: Product.pure(),),
             ],
           ),
         ),

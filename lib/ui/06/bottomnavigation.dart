@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
+import 'package:ecommerce/ui/13/myorder.dart';
 import 'package:ecommerce/ui/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +24,10 @@ class _BuildBottomState extends State<BuildBottom> {
     Icons.person,
   ];
 
-  // Danh sách các trang tương ứng với các item trong navigation bar
   final List<Widget> _screens = [
     const HomePage(),
     const WishList(),
-    const WishList(),
+    const MyOrder(),
     const Profile(),
   ];
 
