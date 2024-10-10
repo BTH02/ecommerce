@@ -7,9 +7,11 @@ import 'package:ecommerce/ui/06/productdetail.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
 import 'package:ecommerce/ui/08/mycart.dart';
 import 'package:ecommerce/ui/09/payment.dart';
+import 'package:ecommerce/ui/09/paymentsuccess.dart';
 import 'package:ecommerce/ui/09/ship.dart';
 import 'package:ecommerce/ui/09/shipping.dart';
 import 'package:ecommerce/ui/12/filter.dart';
+import 'package:ecommerce/ui/13/myorder.dart';
 import 'package:ecommerce/ui/modal/product.dart';
 import 'package:ecommerce/ui/pages/createaccount.dart';
 import 'package:ecommerce/ui/pages/profile.dart';
@@ -36,9 +38,11 @@ class Routes {
   static const String ship = '/ship';
   static const String chooseship = '/chooseship';
   static const String payment = '/payment';
+  static const String paymentSuccess = '/paymentSuccess';
   static const String location = '/location';
   static const String yourlocation = '/yourlocation';
   static const String filter = '/filter';
+  static const String myOrder = '/myOrder';
 
   static Map<String, Widget Function(dynamic context)> routes = {
     home: (context) => const HomePage(),
@@ -59,8 +63,10 @@ class Routes {
     ship: (context) => const ShippingAddress(),
     chooseship: (context) => const ChooseShip(),
     payment:(context) => const Payment(),
+    paymentSuccess:(context) => const PaymentSuccess(),
     location:(context) => const LocationAccess(),
     yourlocation:(context) => const YourLocation(),
     filter:(context) => const Filter(),
+    myOrder:(context) => const MyOrder(),
   };
 }

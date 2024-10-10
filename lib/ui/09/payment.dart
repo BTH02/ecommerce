@@ -1,3 +1,4 @@
+import 'package:ecommerce/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget {
@@ -136,11 +137,14 @@ class _PaymentState extends State<Payment> {
                 color: Colors.brown,
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(20), right: Radius.circular(20))),
-            child: const Center(
-                child: Text(
-                  'Confirm Payment',
-                  style: TextStyle(color: Colors.white),
-                )),
+            child: GestureDetector(
+              onTap: () => Navigator.pushNamed(context, Routes.paymentSuccess),
+              child: const Center(
+                  child: Text(
+                    'Confirm Payment',
+                    style: TextStyle(color: Colors.white),
+                  )),
+            ),
           ),
         ),
       ),
