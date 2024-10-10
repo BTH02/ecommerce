@@ -1,3 +1,4 @@
+import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/08/buildmycart.dart';
 import 'package:flutter/material.dart';
 
@@ -152,10 +153,13 @@ class _MyCartState extends State<MyCart> {
                       borderRadius: BorderRadius.horizontal(
                           right: Radius.circular(25),
                           left: Radius.circular(25))),
-                  child: const Center(
-                    child: Text(
-                      'Proceed to Checkout',
-                      style: TextStyle(color: Colors.white),
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, Routes.checkout),
+                    child: const Center(
+                      child: Text(
+                        'Proceed to Checkout',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )),
             ],

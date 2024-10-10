@@ -1,3 +1,4 @@
+import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/06/producthome.dart';
 import 'package:ecommerce/ui/modal/product.dart';
 import 'package:flutter/material.dart';
@@ -60,19 +61,20 @@ class _HomePageState extends State<HomePage> {
               Row(
                 children: [
                   Expanded(
-                      child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.black),
-                        borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(30),
-                            right: Radius.circular(30))),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search),
-                          hintText: 'Search',
-                          border: InputBorder.none),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.black),
+                          borderRadius: const BorderRadius.horizontal(
+                              left: Radius.circular(30),
+                              right: Radius.circular(30))),
+                      child: const TextField(
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.search),
+                            hintText: 'Search',
+                            border: InputBorder.none),
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -83,10 +85,13 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.brown,
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                     child: Center(
-                      child: SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: Image.asset('images/filter.png'),
+                      child: GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, Routes.filter),
+                        child: SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset('images/filter.png'),
+                        ),
                       ),
                     ),
                   )
