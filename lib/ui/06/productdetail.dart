@@ -88,7 +88,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Text(widget.productItem.style),
+                    Text(widget.productItem.style),
                     Row(
                       children: [
                         const Icon(

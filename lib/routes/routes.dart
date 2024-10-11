@@ -12,6 +12,8 @@ import 'package:ecommerce/ui/09/ship.dart';
 import 'package:ecommerce/ui/09/shipping.dart';
 import 'package:ecommerce/ui/12/filter.dart';
 import 'package:ecommerce/ui/13/myorder.dart';
+import 'package:ecommerce/ui/13/review/leavereview.dart';
+import 'package:ecommerce/ui/13/review/trackreview.dart';
 import 'package:ecommerce/ui/modal/product.dart';
 import 'package:ecommerce/ui/pages/createaccount.dart';
 import 'package:ecommerce/ui/pages/profile.dart';
@@ -43,6 +45,8 @@ class Routes {
   static const String yourlocation = '/yourlocation';
   static const String filter = '/filter';
   static const String myOrder = '/myOrder';
+  static const String leaveReview = '/leaveReview';
+  static const String trackReview = '/trackReview';
 
   static Map<String, Widget Function(dynamic context)> routes = {
     home: (context) => const HomePage(),
@@ -62,11 +66,21 @@ class Routes {
     checkout: (context) => const CheckOut(),
     ship: (context) => const ShippingAddress(),
     chooseship: (context) => const ChooseShip(),
-    payment:(context) => const Payment(),
-    paymentSuccess:(context) => const PaymentSuccess(),
-    location:(context) => const LocationAccess(),
-    yourlocation:(context) => const YourLocation(),
-    filter:(context) => const Filter(),
-    myOrder:(context) => const MyOrder(),
+    payment: (context) => const Payment(),
+    paymentSuccess: (context) => const PaymentSuccess(),
+    location: (context) => const LocationAccess(),
+    yourlocation: (context) => const YourLocation(),
+    filter: (context) => const Filter(),
+    myOrder: (context) => const MyOrder(),
+    leaveReview:(context) {
+      final arg = (ModalRoute.of(context)?.settings.arguments ?? Product.pure())
+      as Product;
+      return LeaveReview(productReview: arg);
+    },
+    trackReview:(context) {
+      final arg = (ModalRoute.of(context)?.settings.arguments ?? Product.pure())
+      as Product;
+      return TrackOrder(productTrack: arg);
+    }
   };
 }

@@ -1,3 +1,5 @@
+import 'package:ecommerce/ui/13/review/leavereview.dart';
+import 'package:ecommerce/ui/modal/product.dart';
 import 'package:flutter/material.dart';
 
 import '../modal/data.dart';
@@ -49,21 +51,24 @@ class _CancelledState extends State<Cancelled> {
                             const SizedBox(
                               width: 70,
                             ),
-                            Container(
-                              width: 90,
-                              height: 35,
-                              decoration: const BoxDecoration(
-                                color: Colors.brown,
-                                borderRadius: BorderRadius.horizontal(
-                                    right: Radius.circular(20),
-                                    left: Radius.circular(20)),
+                            GestureDetector(
+                              onTap: () => LeaveReview(productReview: Product.pure()),
+                              child: Container(
+                                width: 90,
+                                height: 35,
+                                decoration: const BoxDecoration(
+                                  color: Colors.brown,
+                                  borderRadius: BorderRadius.horizontal(
+                                      right: Radius.circular(20),
+                                      left: Radius.circular(20)),
+                                ),
+                                child: const Center(
+                                    child: Text(
+                                  'Re-Order',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                )),
                               ),
-                              child: const Center(
-                                  child: Text(
-                                'Re-Order',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 13),
-                              )),
                             )
                           ],
                         )
