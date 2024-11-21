@@ -1,80 +1,40 @@
-import 'package:ecommerce/routes/routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
-class LocationAccess extends StatefulWidget {
-  const LocationAccess({super.key});
+class StoreMap extends StatelessWidget {
+  // Tọa độ vị trí cửa hàng (ví dụ: TP.HCM)
+  final LatLng storeLocation = const LatLng(21.0475254, 105.7847463);
 
-  @override
-  State<LocationAccess> createState() => _LocationAccessState();
-}
+  const StoreMap({super.key});
 
-class _LocationAccessState extends State<LocationAccess> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 200,
-          ),
-          Center(
-            child: Container(
-              width: 150,
-              height: 150,
-              decoration: const BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(100))),
-              child: const Icon(
-                Icons.location_on,
-                size: 100,
-                color: Colors.red,
-              ),
+        appBar: AppBar(
+          title: const Text('Vị trí cửa hàng'),
+        ),
+        body: FlutterMap(
+          options: MapOptions(
+              initialCenter: storeLocation,
+              initialZoom: 15,
+              interactionOptions: const InteractionOptions(
+                  flags: ~InteractiveFlag.doubleTapDragZoom)),
+          children: [
+            TileLayer(
+              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              userAgentPackageName: 'dev.fleaflet.flutter_map.example',
             ),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          const Center(
-            child: Text('What is Your Location?'),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Center(
-            child: Column(
-              children: [
-                Text('We need to know your location in order to suggest'),
-                Text('nearby services.'),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 20, left: 20),
-            height: 50,
-            decoration: const BoxDecoration(
-                color: Colors.brown,
-                borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(20), right: Radius.circular(20))),
-            child: const Center(
-              child: Text(
-                'Allow Location Access',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-          const SizedBox(height: 30,),
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, Routes.yourlocation),
-            child: const Center(
-              child: Text('Enter Location Manually'),
-            ),
-          )
-        ],
-      ),
-    );
+            MarkerLayer(markers: [
+              Marker(
+                  point: storeLocation,
+                  child: const Icon(
+                    Icons.location_pin,
+                    size: 50,
+                    color: Colors.red,
+                  ))
+            ])
+          ],
+        ));
   }
 }

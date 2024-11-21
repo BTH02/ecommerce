@@ -1,16 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/routes/routes.dart';
+import 'package:ecommerce/ui/08/mycart.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
-import '../modal/data.dart';
+import '../06/api_mycart.dart';
 
 class CheckOut extends StatefulWidget {
-  const CheckOut({super.key});
+  const CheckOut({super.key, required this.selectedAddress});
+
+  final String selectedAddress;
 
   @override
   State<CheckOut> createState() => _CheckOutState();
 }
 
 class _CheckOutState extends State<CheckOut> {
+  late String _address;
+
+  @override
+  void initState() {
+    super.initState();
+    // Gán giá trị từ widget vào các biến của State
+    _address = widget.selectedAddress;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +37,7 @@ class _CheckOutState extends State<CheckOut> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 60,
-                  ),
+                  const Gap(60),
                   Row(
                     children: [
                       Container(
@@ -35,38 +48,34 @@ class _CheckOutState extends State<CheckOut> {
                                 const BorderRadius.all(Radius.circular(50)),
                             border: Border.all(width: 1, color: Colors.black)),
                         child: IconButton(
-                            onPressed: () => Navigator.pop(context),
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyCart(userId: userId.toString()),
+                                )),
                             icon: const Icon(Icons.arrow_back)),
                       ),
-                      const SizedBox(
-                        width: 80,
-                      ),
-                      const Text('Check Out'),
+                      const Gap(80),
+                      const Text('Kiểm tra lại'),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text('Shipping Address'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    children: [
-                      Icon(Icons.location_on),
-                      Text(
-                        'Home',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                  const Gap(20),
+                  const Text('Địa chỉ giao hàng'),
+                  const Gap(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                          margin: const EdgeInsets.only(left: 25),
-                          child: const Text('HM DP HN')),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on),
+                          Text(
+                            _address,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                       Container(
                         width: 70,
                         height: 25,
@@ -79,13 +88,11 @@ class _CheckOutState extends State<CheckOut> {
                         child: GestureDetector(
                             onTap: () =>
                                 Navigator.pushNamed(context, Routes.ship),
-                            child: const Center(child: Text('CHANGE'))),
+                            child: const Center(child: Text('Thay đổi'))),
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const Gap(20),
                   const Divider(
                     color: Colors.black,
                     height: 0.01,
@@ -93,32 +100,25 @@ class _CheckOutState extends State<CheckOut> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text('Choose Shipping Type'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Image.asset('images/shipbox.png')),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Text(
-                        'Economy',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                  const Text('Chọn kiểu giao hàng'),
+                  const Gap(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                          margin: const EdgeInsets.only(left: 35),
-                          child: const Text('HM DP HN')),
+                      Row(
+                        children: [
+                          SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: Image.asset('images/shipbox.png')),
+                          const Gap(5),
+                          const Text(
+                            'Economy',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                       Container(
                         width: 70,
                         height: 25,
@@ -131,79 +131,105 @@ class _CheckOutState extends State<CheckOut> {
                         child: GestureDetector(
                             onTap: () =>
                                 Navigator.pushNamed(context, Routes.chooseship),
-                            child: const Center(child: Text('CHANGE'))),
-                      )
+                            child: const Center(child: Text('Thay đổi'))),
+                      ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const Gap(20),
                   const Divider(
                     color: Colors.black,
                     height: 0.01,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Text('Order List'),
+                  const Gap(30),
+                  const Text('Danh sách đơn hàng'),
                 ],
               ),
             ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: productList.length,
-              itemBuilder: (context, index) {
-                final product = productList[index];
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Row(
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(userId)
+                    .collection('cart')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (snapshot.hasError) {
+                    return const Center(child: Text("Something went wrong"));
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const SizedBox(
+                      height: 300,
+                      child: Center(
+                        child: Text('Đơn hàng trống!'),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final product = snapshot.data!.docs[index];
+                      Map<String, dynamic> data =
+                          product.data() as Map<String, dynamic>;
+                      return Column(
                         children: [
-                          SizedBox(
-                            width: 110,
-                            height: 110,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(20),
-                                  right: Radius.circular(20)),
-                              child: Image.asset(
-                                product.pathImage,
-                                fit: BoxFit.cover,
-                              ),
+                          ListTile(
+                            title: Row(
+                              children: [
+                                SizedBox(
+                                  width: 110,
+                                  height: 110,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.horizontal(
+                                        left: Radius.circular(20),
+                                        right: Radius.circular(20)),
+                                    child: CachedNetworkImage(
+                                      imageUrl: '${data['img']}',
+                                    ),
+                                  ),
+                                ),
+                                const Gap(10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                        width: 200,
+                                        child: Text(
+                                          data['productName'],
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        )),
+                                    Text('Size: ${data['size']}'),
+                                    Text('Màu: ${data['color']}'),
+                                    Text(
+                                        'Số lượng:${data['quantity'].toString()}'),
+                                    Row(
+                                      children: [
+                                        Text(data['price'].toString()),
+                                        const Gap(70),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(product.name),
-                              const Text('Size:'),
-                              Row(
-                                children: [
-                                  Text(product.price.toString()),
-                                  const SizedBox(
-                                    width: 70,
-                                  ),
-                                ],
-                              ),
-                            ],
+                          const Divider(
+                            color: Colors.black,
+                            height: 0.01,
+                            endIndent: 20,
+                            indent: 20,
                           ),
                         ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      height: 0.01,
-                      endIndent: 20,
-                      indent: 20,
-                    ),
-                  ],
-                );
-              },
-            )
+                      );
+                    },
+                  );
+                })
           ],
         ),
       ),
@@ -225,7 +251,7 @@ class _CheckOutState extends State<CheckOut> {
                       left: Radius.circular(20), right: Radius.circular(20))),
               child: const Center(
                   child: Text(
-                'Continue to Payment',
+                'Tiếp tục thanh toán',
                 style: TextStyle(color: Colors.white),
               )),
             ),

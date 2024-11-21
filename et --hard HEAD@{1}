@@ -1,0 +1,20 @@
+[33mfd337ce[m[33m ([m[1;36mHEAD -> [m[1;32mrevieworder[m[33m, [m[1;31morigin/revieworder[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33mfd337ce[m[33m ([m[1;36mHEAD -> [m[1;32mrevieworder[m[33m, [m[1;31morigin/revieworder[m[33m)[m HEAD@{1}: commit: review order
+[33m7775fca[m[33m ([m[1;31morigin/myorder[m[33m, [m[1;32mmyorder[m[33m)[m HEAD@{2}: checkout: moving from myorder to revieworder
+[33m7775fca[m[33m ([m[1;31morigin/myorder[m[33m, [m[1;32mmyorder[m[33m)[m HEAD@{3}: commit: myorder
+[33mb6ca392[m[33m ([m[1;31morigin/filter[m[33m, [m[1;32mfilter[m[33m)[m HEAD@{4}: checkout: moving from filter to myorder
+[33mb6ca392[m[33m ([m[1;31morigin/filter[m[33m, [m[1;32mfilter[m[33m)[m HEAD@{5}: commit: filter
+[33m2474267[m[33m ([m[1;31morigin/location[m[33m, [m[1;32mlocation[m[33m)[m HEAD@{6}: checkout: moving from location to filter
+[33m2474267[m[33m ([m[1;31morigin/location[m[33m, [m[1;32mlocation[m[33m)[m HEAD@{7}: commit: location
+[33mc67b2b0[m[33m ([m[1;31morigin/payment[m[33m, [m[1;32mpayment[m[33m)[m HEAD@{8}: checkout: moving from payment to location
+[33mc67b2b0[m[33m ([m[1;31morigin/payment[m[33m, [m[1;32mpayment[m[33m)[m HEAD@{9}: commit: payment
+[33m38d1138[m[33m ([m[1;31morigin/chooseship[m[33m, [m[1;32mchooseship[m[33m)[m HEAD@{10}: checkout: moving from chooseship to payment
+[33m38d1138[m[33m ([m[1;31morigin/chooseship[m[33m, [m[1;32mchooseship[m[33m)[m HEAD@{11}: commit: chooseship
+[33m040565f[m[33m ([m[1;31morigin/ship[m[33m, [m[1;32mship[m[33m)[m HEAD@{12}: checkout: moving from ship to chooseship
+[33m040565f[m[33m ([m[1;31morigin/ship[m[33m, [m[1;32mship[m[33m)[m HEAD@{13}: commit: ship
+[33m983f3ee[m[33m ([m[1;31morigin/checkout[m[33m)[m HEAD@{14}: checkout: moving from checkout to ship
+[33m983f3ee[m[33m ([m[1;31morigin/checkout[m[33m)[m HEAD@{15}: commit: checkout
+[33ma5b91cc[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{16}: checkout: moving from develop to checkout
+[33ma5b91cc[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{17}: commit: commit
+[33m240b81a[m HEAD@{18}: commit: feat: auth flow ui
+[33m169459e[m HEAD@{19}: commit (initial): first commit
