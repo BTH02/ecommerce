@@ -377,13 +377,11 @@ class _ProductDetailState extends State<ProductDetail> {
                     child: IconButton(
                       icon: const Icon(Icons.shopping_bag),
                       onPressed: () {
-                        final user = FirebaseAuth.instance.currentUser;
-                        final userId = user?.uid;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => MyCart(
-                                userId: userId.toString(),
+                                userId: FirebaseAuth.instance.currentUser!.uid,
                               ),
                             ));
                       },

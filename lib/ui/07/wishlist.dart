@@ -8,8 +8,8 @@ import '../06/api_wishlist.dart';
 import '../06/product_detail.dart';
 
 class WishList extends StatefulWidget {
-  const WishList({super.key});
-
+  const WishList({super.key, required this.userId});
+  final String userId;
   @override
   State<WishList> createState() => _WishListState();
 }
@@ -61,7 +61,7 @@ class _WishListState extends State<WishList> {
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .doc(userId)
+                    .doc(widget.userId)
                     .collection('favourite')
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -97,8 +97,6 @@ class _WishListState extends State<WishList> {
                     itemBuilder: (context, index) {
                       final product = favouriteItems[index];
                       String productId = favouriteItems[index].id;
-                      final user = FirebaseAuth.instance.currentUser;
-                      final userId = user?.uid;
                       Map<String, dynamic> productData = product.data();
                       return GestureDetector(
                         onTap: () {
@@ -107,7 +105,7 @@ class _WishListState extends State<WishList> {
                               MaterialPageRoute(
                                 builder: (context) => ProductDetail(
                                   productData: productData,
-                                  userId: userId.toString(),
+                                  userId: FirebaseAuth.instance.currentUser!.uid,
                                   productId: productId,
                                 ),
                               ));

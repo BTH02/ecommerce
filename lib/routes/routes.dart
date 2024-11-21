@@ -1,8 +1,8 @@
 import 'package:ecommerce/ui/03/onboarding.dart';
 import 'package:ecommerce/ui/04/forgot_password.dart';
+import 'package:ecommerce/ui/05/location.dart';
 import 'package:ecommerce/ui/06/bottomnavigation.dart';
 import 'package:ecommerce/ui/06/homepage.dart';
-import 'package:ecommerce/ui/07/wishlist.dart';
 import 'package:ecommerce/ui/09/add_address.dart';
 import 'package:ecommerce/ui/09/choose_ship.dart';
 import 'package:ecommerce/ui/09/chooso_adress.dart';
@@ -21,12 +21,12 @@ import 'package:ecommerce/ui/16/managerpass/manager_dele.dart';
 import 'package:ecommerce/ui/16/managerpass/manager_password.dart';
 import 'package:ecommerce/ui/16/setting_setting.dart';
 import 'package:ecommerce/ui/modal/product.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/04/createaccount.dart';
 import '../ui/04/profile.dart';
 import '../ui/04/sigin.dart';
-import '../ui/06/api_mycart.dart';
 
 class Routes {
   const Routes._();
@@ -67,9 +67,10 @@ class Routes {
     createAccount: (context) => const CreateAccount(),
     profile: (context) => const Profile(),
     buildbottom: (context) => const BuildBottom(),
-    wishList: (context) => const WishList(),
+    location:(context) => const StoreMap(),
+    // wishList: (context) => const WishList(userId: FirebaseAuth.instance.currentUser!.uid,),
     ship: (context) => ShippingAddress(
-          userId: userId.toString(),
+          userId: FirebaseAuth.instance.currentUser!.uid,
         ),
     chooseship: (context) => const ChooseShip(),
     payment: (context) => const Payment(),
@@ -103,6 +104,7 @@ class Routes {
         ),
     deleteAccount: (context) => const DeleteAccountScreen(),
     forgotPassword: (context) => const ForgotPasswordScreen(),
-    addAddress: (context) => AddAddressScreen(userId: userId.toString()),
+    addAddress: (context) =>
+        AddAddressScreen(userId: FirebaseAuth.instance.currentUser!.uid),
   };
 }

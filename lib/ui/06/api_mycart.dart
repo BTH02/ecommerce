@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final user = FirebaseAuth.instance.currentUser;
-final userId = user?.uid;
 
 Future<void> addToCartWithProductInfo(
   String userId,
@@ -11,6 +9,8 @@ Future<void> addToCartWithProductInfo(
   String selectedSize,
   String selectedColor,
 ) async {
+  final user = FirebaseAuth.instance.currentUser;
+  final userId = user?.uid;
   final cartRef = FirebaseFirestore.instance
       .collection('users')
       .doc(userId)
@@ -111,6 +111,8 @@ Future<void> addToCartWithProductInfo(
 }
 
 Future<void> deleteCartItem(String cartItemId) async {
+  final user = FirebaseAuth.instance.currentUser;
+  final userId = user?.uid;
   try {
     await FirebaseFirestore.instance
         .collection('users')

@@ -41,8 +41,6 @@ class _ProductHomeState extends State<ProductHome> {
               itemBuilder: (context, index) {
                 final product = products[index];
                 String productId = products[index].id;
-                final user = FirebaseAuth.instance.currentUser;
-                final userId = user?.uid;
                 Map<String, dynamic> productData = product.data();
                 return GestureDetector(
                   onTap: () {
@@ -51,7 +49,7 @@ class _ProductHomeState extends State<ProductHome> {
                         MaterialPageRoute(
                           builder: (context) => ProductDetail(
                             productData: productData,
-                            userId: userId.toString(),
+                            userId: FirebaseAuth.instance.currentUser!.uid,
                             productId: productId,
                           ),
                         ));
@@ -89,7 +87,7 @@ class _ProductHomeState extends State<ProductHome> {
                                   right: 0,
                                   child: IconButton(
                                     onPressed: () {
-                                      addProductWishList(userId.toString(), productId);
+                                      addProductWishList(FirebaseAuth.instance.currentUser!.uid, productId);
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             content:

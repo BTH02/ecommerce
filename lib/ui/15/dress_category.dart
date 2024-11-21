@@ -92,7 +92,7 @@ class DressCategory extends StatelessWidget {
                                               child: IconButton(
                                                 onPressed: () {
                                                   addProductWishList(
-                                                      userId.toString(),
+                                                      FirebaseAuth.instance.currentUser!.uid,
                                                       product.id);
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(

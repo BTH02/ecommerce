@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/09/checkout.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../06/api_mycart.dart';
 
 class ShippingAddress extends StatefulWidget {
   const ShippingAddress({super.key, required this.userId});
@@ -17,6 +16,7 @@ class ShippingAddress extends StatefulWidget {
 
 class _ShippingAddressState extends State<ShippingAddress> {
   String? _selectedAddress;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                     width: 40,
                     decoration: BoxDecoration(
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(50)),
+                            const BorderRadius.all(Radius.circular(50)),
                         border: Border.all(width: 1, color: Colors.black)),
                     child: IconButton(
                         onPressed: () => Navigator.pop(context),
@@ -58,7 +58,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('users')
-                        .doc(userId)
+                        .doc(widget.userId)
                         .collection('addresses')
                         .snapshots(),
                     builder: (context, snapshot) {
@@ -67,8 +67,8 @@ class _ShippingAddressState extends State<ShippingAddress> {
                       }
 
                       if (snapshot.hasError) {
-                        return const Center(child: Text(
-                            "Something went wrong"));
+                        return const Center(
+                            child: Text("Something went wrong"));
                       }
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                         return const SizedBox(
@@ -84,12 +84,12 @@ class _ShippingAddressState extends State<ShippingAddress> {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           final product = snapshot.data!.docs[index];
-                          Map<String, dynamic> data =
-                          product.data();
+                          Map<String, dynamic> data = product.data();
                           return Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -97,7 +97,8 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                       Text(
                                         data['address'],
                                         style: const TextStyle(
-                                            fontSize: 20, fontWeight: FontWeight.bold),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -125,7 +126,6 @@ class _ShippingAddressState extends State<ShippingAddress> {
                       );
                     },
                   ),
-
                 ],
               ),
               const SizedBox(
@@ -165,9 +165,15 @@ class _ShippingAddressState extends State<ShippingAddress> {
                 topRight: Radius.circular(15), topLeft: Radius.circular(15))),
         child: GestureDetector(
           onTap: () {
-            if(_selectedAddress != null){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CheckOut(selectedAddress: _selectedAddress!),));
-            }else{
+            if (_selectedAddress != null) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CheckOut(
+                        userId: FirebaseAuth.instance.currentUser!.uid,
+                        selectedAddress: _selectedAddress!),
+                  ));
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Vui lòng chọn một tùy chọn!")),
               );
@@ -183,9 +189,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
                       left: Radius.circular(20), right: Radius.circular(20))),
               child: const Center(
                   child: Text(
-                    'Đồng ý',
-                    style: TextStyle(color: Colors.white),
-                  )),
+                'Đồng ý',
+                style: TextStyle(color: Colors.white),
+              )),
             ),
           ),
         ),

@@ -2,15 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../06/api_mycart.dart';
-
 class CheckOut extends StatefulWidget {
-  const CheckOut({super.key, required this.selectedAddress});
+  const CheckOut(
+      {super.key, required this.selectedAddress, required this.userId});
 
   final String selectedAddress;
+  final String userId;
 
   @override
   State<CheckOut> createState() => _CheckOutState();
@@ -51,8 +52,9 @@ class _CheckOutState extends State<CheckOut> {
                             onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyCart(userId: userId.toString()),
+                                  builder: (context) => MyCart(
+                                      userId: FirebaseAuth
+                                          .instance.currentUser!.uid),
                                 )),
                             icon: const Icon(Icons.arrow_back)),
                       ),
@@ -148,7 +150,7 @@ class _CheckOutState extends State<CheckOut> {
             StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .doc(userId)
+                    .doc(widget.userId)
                     .collection('cart')
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

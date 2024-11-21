@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/06/api_mycart.dart';
 import 'package:ecommerce/ui/09/checkout.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:gap/gap.dart';
@@ -581,7 +582,8 @@ class _MyCartState extends State<MyCart> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  const CheckOut(
+                                  builder: (context) => CheckOut(
+                                    userId: FirebaseAuth.instance.currentUser!.uid,
                                       selectedAddress: 'Chưa chọn địa chỉ'),
                                 ),
                               ),

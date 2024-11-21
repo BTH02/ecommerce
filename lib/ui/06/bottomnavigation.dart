@@ -3,10 +3,10 @@ import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
 import 'package:ecommerce/ui/08/mycart.dart';
 import 'package:ecommerce/ui/17/chat_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../16/profile_setting.dart';
-import 'api_mycart.dart';
 
 class BuildBottom extends StatefulWidget {
   const BuildBottom({super.key});
@@ -28,9 +28,11 @@ class _BuildBottomState extends State<BuildBottom> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    const WishList(),
+    WishList(
+      userId: FirebaseAuth.instance.currentUser!.uid,
+    ),
     UserChatScreen(
-      userId: userId.toString(),
+      userId: FirebaseAuth.instance.currentUser!.uid,
     ),
     const ProfileSetting(),
   ];
@@ -46,7 +48,7 @@ class _BuildBottomState extends State<BuildBottom> {
               context,
               MaterialPageRoute(
                 builder: (context) => MyCart(
-                  userId: userId.toString(),
+                  userId: FirebaseAuth.instance.currentUser!.uid,
                 ),
               ));
         },
