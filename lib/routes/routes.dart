@@ -67,13 +67,15 @@ class Routes {
     createAccount: (context) => const CreateAccount(),
     profile: (context) => const Profile(),
     buildbottom: (context) => const BuildBottom(),
-    location:(context) => const StoreMap(),
+    location: (context) => const StoreMap(),
     // wishList: (context) => const WishList(userId: FirebaseAuth.instance.currentUser!.uid,),
     ship: (context) => ShippingAddress(
           userId: FirebaseAuth.instance.currentUser!.uid,
         ),
     chooseship: (context) => const ChooseShip(),
-    payment: (context) => const Payment(),
+    payment: (context) => Payment(
+          userId: FirebaseAuth.instance.currentUser!.uid,
+        ),
     paymentSuccess: (context) => const PaymentSuccess(),
     filter: (context) => const Filter(),
     myOrder: (context) => const MyOrder(),

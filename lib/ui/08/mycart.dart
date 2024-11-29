@@ -86,7 +86,8 @@ class _MyCartState extends State<MyCart> {
                               border:
                                   Border.all(width: 1, color: Colors.black)),
                           child: IconButton(
-                              onPressed: () => Navigator.pushNamed(context, Routes.buildbottom),
+                              onPressed: () => Navigator.pushNamed(
+                                  context, Routes.buildbottom),
                               icon: const Icon(Icons.arrow_back)),
                         ),
                         const Gap(75),
@@ -101,7 +102,10 @@ class _MyCartState extends State<MyCart> {
                 ],
               );
             }
-            final cartItems = snapshot.data!.docs;
+            final filteredDocs = snapshot.data!.docs.where((doc) {
+              return doc.id != 'address'; // Loại bỏ document có id là "address"
+            }).toList();
+            final cartItems = filteredDocs;
             // Tính tổng trường 'price'
             double total = 0;
             for (var item in cartItems) {
@@ -109,6 +113,7 @@ class _MyCartState extends State<MyCart> {
             }
             double delivery = 30000;
             double totalAll = total + delivery;
+
             return Column(
               children: [
                 const Gap(60),
@@ -124,7 +129,8 @@ class _MyCartState extends State<MyCart> {
                                 const BorderRadius.all(Radius.circular(50)),
                             border: Border.all(width: 1, color: Colors.black)),
                         child: IconButton(
-                            onPressed: () => Navigator.pushNamed(context, Routes.buildbottom),
+                            onPressed: () => Navigator.pushNamed(
+                                context, Routes.buildbottom),
                             icon: const Icon(Icons.arrow_back)),
                       ),
                       const Gap(75),
@@ -139,9 +145,9 @@ class _MyCartState extends State<MyCart> {
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
+                          itemCount: filteredDocs.length,
                           itemBuilder: (context, index) {
-                            final product = snapshot.data!.docs[index];
+                            final product = filteredDocs[index];
                             String itemId = product.id;
                             Map<String, dynamic> data =
                                 product.data() as Map<String, dynamic>;
@@ -583,7 +589,8 @@ class _MyCartState extends State<MyCart> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => CheckOut(
-                                    userId: FirebaseAuth.instance.currentUser!.uid,
+                                      userId: FirebaseAuth
+                                          .instance.currentUser!.uid,
                                       selectedAddress: 'Chưa chọn địa chỉ'),
                                 ),
                               ),

@@ -16,6 +16,35 @@ class ShippingAddress extends StatefulWidget {
 
 class _ShippingAddressState extends State<ShippingAddress> {
   String? _selectedAddress;
+  Future<void> _updateCartWithSelectedAddress(String userId, String address) async {
+    final firestore = FirebaseFirestore.instance;
+
+    try {
+      // Tham chiếu đến subcollection `cart`
+      final cartRef = firestore.collection('users').doc(userId).collection('cart');
+
+      // Lấy document `address` từ `cart`
+      final addressDoc = cartRef.doc('address');
+
+      // Kiểm tra document có tồn tại không
+      final docSnapshot = await addressDoc.get();
+
+      if (docSnapshot.exists) {
+        // Document đã tồn tại -> Ghi đè địa chỉ
+        await addressDoc.update({'address': address});
+      } else {
+        // Document chưa tồn tại -> Thêm mới
+        await addressDoc.set({'address': address});
+      }
+
+      print("Địa chỉ đã được cập nhật thành công!");
+    } catch (e) {
+      print("Lỗi khi cập nhật địa chỉ trong cart: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Lỗi: $e")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,8 +193,10 @@ class _ShippingAddressState extends State<ShippingAddress> {
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(15), topLeft: Radius.circular(15))),
         child: GestureDetector(
-          onTap: () {
+          onTap: () async {
             if (_selectedAddress != null) {
+              await _updateCartWithSelectedAddress(
+                  FirebaseAuth.instance.currentUser!.uid, _selectedAddress!);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -175,7 +206,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                   ));
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Vui lòng chọn một tùy chọn!")),
+                const SnackBar(content: Text("Vui lòng chọn một địa chỉ!")),
               );
             }
           },

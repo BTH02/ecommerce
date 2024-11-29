@@ -170,12 +170,15 @@ class _CheckOutState extends State<CheckOut> {
                       ),
                     );
                   }
+                  final filteredDocs = snapshot.data!.docs.where((doc) {
+                    return doc.id != 'address' && doc.id != 'userName'; // Loại bỏ document có id là "address"
+                  }).toList();
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: filteredDocs.length,
                     itemBuilder: (context, index) {
-                      final product = snapshot.data!.docs[index];
+                      final product = filteredDocs[index];
                       Map<String, dynamic> data =
                           product.data() as Map<String, dynamic>;
                       return Column(
