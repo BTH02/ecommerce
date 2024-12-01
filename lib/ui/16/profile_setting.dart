@@ -124,10 +124,6 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       children: [
                         const _BuildProfile(
                           icon: Icons.person,
-                          text: 'Thông tin cá nhân',
-                        ),
-                        const _BuildProfile(
-                          icon: Icons.person,
                           text: 'Phương thức thanh toán',
                         ),
                         _BuildProfile(

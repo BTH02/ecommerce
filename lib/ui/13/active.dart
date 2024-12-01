@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class Active extends StatefulWidget {
@@ -18,7 +19,8 @@ class _ActiveState extends State<Active> {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('orders')
-            .where('userId', isEqualTo: widget.userId) // Lọc theo userId
+            .where('userId', isEqualTo: widget.userId)
+            .where('status', isEqualTo: 'pending')// Lọc theo userId
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -103,6 +105,7 @@ class _ActiveState extends State<Active> {
                                             const SizedBox(width: 20),
                                             GestureDetector(
                                               onTap: () {
+                                                // Navigator.pushNamed(context, Routes.trackReview);
                                                 // Xử lý theo dõi đơn hàng
                                               },
                                               child: Container(

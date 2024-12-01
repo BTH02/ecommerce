@@ -31,7 +31,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 const SizedBox(
                   width: 80,
                 ),
-                const Text('Payment'),
+                const Text('Thanh toán'),
               ],
             ),
             const SizedBox(
@@ -54,9 +54,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
               ),
             ),
             const SizedBox(height: 20,),
-            const Text('Payment Successful!'),
+            const Text('Thanh toán thành công!'),
             const SizedBox(height: 20,),
-            const Text('Thank you for your purchase'),
+            const Text('Cảm ơn bạn đã đặt hàng'),
           ],
         ),
       ),
@@ -81,13 +81,13 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                           left: Radius.circular(20), right: Radius.circular(20))),
                   child: const Center(
                       child: Text(
-                        'View Order',
+                        'Đơn hàng',
                         style: TextStyle(color: Colors.white),
                       )),
                 ),
               ),
               const SizedBox(height: 10,),
-              const Text('View E-Receipt'),
+              const Text('Hóa đơn'),
             ],
           ),
         ),

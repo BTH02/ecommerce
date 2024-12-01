@@ -40,6 +40,7 @@ class _CheckOutState extends State<CheckOut> {
                 children: [
                   const Gap(60),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         height: 40,
@@ -58,8 +59,18 @@ class _CheckOutState extends State<CheckOut> {
                                 )),
                             icon: const Icon(Icons.arrow_back)),
                       ),
-                      const Gap(80),
                       const Text('Kiểm tra lại'),
+                      Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.black),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(50))),
+                          child: IconButton(
+                              onPressed: () => Navigator.pushNamed(
+                                  context, Routes.buildbottom),
+                              icon: const Icon(Icons.home_outlined)))
                     ],
                   ),
                   const Gap(20),
@@ -171,7 +182,9 @@ class _CheckOutState extends State<CheckOut> {
                     );
                   }
                   final filteredDocs = snapshot.data!.docs.where((doc) {
-                    return doc.id != 'address' && doc.id != 'userName'; // Loại bỏ document có id là "address"
+                    return doc.id != 'address' &&
+                        doc.id !=
+                            'userName'; // Loại bỏ document có id là "address"
                   }).toList();
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),

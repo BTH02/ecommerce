@@ -23,6 +23,7 @@ class _PaymentState extends State<Payment> {
               height: 60,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: 40,
@@ -34,10 +35,18 @@ class _PaymentState extends State<Payment> {
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back)),
                 ),
-                const SizedBox(
-                  width: 80,
-                ),
                 const Text('Phương thức thanh toán'),
+                Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(50))),
+                    child: IconButton(
+                        onPressed: () => Navigator.pushNamed(
+                            context, Routes.buildbottom),
+                        icon: const Icon(Icons.home_outlined)))
               ],
             ),
             const SizedBox(
