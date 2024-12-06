@@ -1,8 +1,11 @@
+import 'package:ecommerce/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-class Payment extends StatefulWidget {
-  const Payment({super.key});
+import 'api_order.dart';
 
+class Payment extends StatefulWidget {
+  const Payment({super.key, required this.userId});
+  final String userId;
   @override
   State<Payment> createState() => _PaymentState();
 }
@@ -20,6 +23,7 @@ class _PaymentState extends State<Payment> {
               height: 60,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: 40,
@@ -31,16 +35,24 @@ class _PaymentState extends State<Payment> {
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back)),
                 ),
-                const SizedBox(
-                  width: 80,
-                ),
-                const Text('Payment Methods'),
+                const Text('Phương thức thanh toán'),
+                Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(50))),
+                    child: IconButton(
+                        onPressed: () => Navigator.pushNamed(
+                            context, Routes.buildbottom),
+                        icon: const Icon(Icons.home_outlined)))
               ],
             ),
             const SizedBox(
               height: 20,
             ),
-            const Text('Credit & Debit Card'),
+            const Text('Thẻ tín dụng & Thẻ ghi nợ'),
             const SizedBox(
               height: 10,
             ),
@@ -66,7 +78,7 @@ class _PaymentState extends State<Payment> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text('Add Card'),
+                        const Text('Thêm thẻ'),
                       ],
                     ),
                     const Icon(Icons.arrow_forward_ios_sharp),
@@ -77,7 +89,7 @@ class _PaymentState extends State<Payment> {
             const SizedBox(
               height: 10,
             ),
-            const Text('More Payment Options'),
+            const Text('Tùy chọn thanh toán khác'),
             const SizedBox(
               height: 10,
             ),
@@ -136,11 +148,22 @@ class _PaymentState extends State<Payment> {
                 color: Colors.brown,
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(20), right: Radius.circular(20))),
-            child: const Center(
-                child: Text(
-                  'Confirm Payment',
-                  style: TextStyle(color: Colors.white),
-                )),
+            child: GestureDetector(
+              onTap: () async {
+                await moveCartToOrders(widget.userId);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text(
+                          'Đặt hàng thành công!')),
+                );
+                              Navigator.pushNamed(context, Routes.paymentSuccess);
+              },
+              child: const Center(
+                  child: Text(
+                    'Xác nhận thanh toán',
+                    style: TextStyle(color: Colors.white),
+                  )),
+            ),
           ),
         ),
       ),

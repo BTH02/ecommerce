@@ -1,9 +1,12 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:ecommerce/routes/routes.dart';
 import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
-import 'package:ecommerce/ui/pages/profile.dart';
+import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:ecommerce/ui/17/chat_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../16/profile_setting.dart';
 
 class BuildBottom extends StatefulWidget {
   const BuildBottom({super.key});
@@ -23,21 +26,31 @@ class _BuildBottomState extends State<BuildBottom> {
     Icons.person,
   ];
 
-  // Danh sách các trang tương ứng với các item trong navigation bar
   final List<Widget> _screens = [
     const HomePage(),
-    const WishList(),
-    const WishList(),
-    const Profile(),
+    WishList(
+      userId: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    UserChatScreen(
+      userId: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    const ProfileSetting(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _screens[_currentIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.myCart);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyCart(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                ),
+              ));
         },
         child: const Icon(Icons.shopping_bag),
       ),
