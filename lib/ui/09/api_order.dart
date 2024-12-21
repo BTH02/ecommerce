@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<void> moveCartToOrders(String userId) async {
+Future<void> moveCartToOrders() async {
   final user = FirebaseAuth.instance.currentUser;
   final userId = user?.uid;
   // Reference đến Firestore
-  final firestore = FirebaseFirestore.instance;
+  final fireStore = FirebaseFirestore.instance;
 
-  // Reference đến subcollections và collections
-  final cartRef = firestore.collection('users').doc(userId).collection('cart');
-  final ordersRef = firestore.collection('orders');
-  final userRef = firestore.collection('users').doc(userId);
+  // Reference đến sub collections và collections
+  final cartRef = fireStore.collection('users').doc(userId).collection('cart');
+  final ordersRef = fireStore.collection('orders');
+  final userRef = fireStore.collection('users').doc(userId);
   try {
     // 1. Lấy sản phẩm từ `cart`
     final cartSnapshot = await cartRef.get();
@@ -28,7 +28,8 @@ Future<void> moveCartToOrders(String userId) async {
 
     // 2. Lấy địa chỉ từ `cart` (ví dụ, địa chỉ có thể được lưu trong field 'address' của cart)
     Map<String, dynamic>? addressData;
-    final addressDoc = await cartRef.doc('address').get();  // Lấy document có ID là 'address'
+    final addressDoc =
+        await cartRef.doc('address').get(); // Lấy document có ID là 'address'
 
     if (addressDoc.exists) {
       addressData = addressDoc.data() as Map<String, dynamic>;
@@ -42,7 +43,8 @@ Future<void> moveCartToOrders(String userId) async {
     String? userName;
     final userDoc = await userRef.get();
     if (userDoc.exists) {
-      userName = userDoc.data()?['fullName'];  // Assuming the user's name is stored in Firestore
+      userName = userDoc.data()?[
+          'fullName']; // Assuming the user's name is stored in Firestore
     }
 
     if (userName == null) {
@@ -63,7 +65,7 @@ Future<void> moveCartToOrders(String userId) async {
     await ordersRef.add(orderData);
 
     // 5. Xóa dữ liệu trong `cart`
-    final batch = firestore.batch();
+    final batch = fireStore.batch();
     for (var doc in cartSnapshot.docs) {
       batch.delete(doc.reference);
     }

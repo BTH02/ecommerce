@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:ecommerce/ui/04/sigin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -71,12 +72,11 @@ Future<bool> isAdmin(User user) async {
     return false;
   }
 }
+
 Future<void> logOut(BuildContext context) async {
   try {
     await FirebaseAuth.instance.signOut(); // Đăng xuất người dùng
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Đăng xuất thành công')),
-    );
+    context.showSnackBarInfo("Đăng xuất thành công");
 
     // Sau khi đăng xuất, bạn có thể chuyển người dùng về màn hình đăng nhập
     Navigator.pushReplacement(
@@ -84,9 +84,7 @@ Future<void> logOut(BuildContext context) async {
       MaterialPageRoute(builder: (context) => const SignIn()),
     );
   } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Đăng xuất không thành công')),
-    );
+    context.showSnackBarInfo("Đăng xuất thất bại");
   }
 }
 

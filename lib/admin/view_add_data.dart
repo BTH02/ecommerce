@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -101,7 +102,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
-                      labelText: "Tên sản phẩm", border: OutlineInputBorder(),
+                    labelText: "Tên sản phẩm",
+                    border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -231,11 +233,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ElevatedButton(
                   onPressed: () {
                     addProduct();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content:
-                          Text('Thêm sản phẩm thành công!')),
-                    );
+                    context.showSnackBarSuccess('Thêm sản phẩm thành công!');
                   },
                   child: const Text("Thêm sản phẩm"),
                 ),

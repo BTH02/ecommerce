@@ -1,4 +1,5 @@
 import 'package:ecommerce/admin/ui_admin.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -169,10 +170,8 @@ class _SignInState extends State<SignIn> {
                             await AuthService().signInUser(email, password);
                         if (_formKey.currentState!.validate()) {
                           if (user == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Sai email hoặc mật khẩu!')),
-                            );
+                            context
+                                .showSnackBarInfo('Sai email hoặc mật khẩu!');
                           }
                           if (user != null) {
                             bool isAdminUser = await isAdmin(user);
@@ -182,17 +181,12 @@ class _SignInState extends State<SignIn> {
                                   MaterialPageRoute(
                                     builder: (context) => const AdminView(),
                                   ));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text('Đăng nhập admin thành công!')),
+                              context.showSnackBarInfo(
+                                'Đăng nhập admin thành công!',
                               );
                             } else {
                               Navigator.pushNamed(context, Routes.buildbottom);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Đăng nhập thành công!')),
-                              );
+                              context.showSnackBarInfo('Đăng nhập thành công!');
                             }
                           }
                         }

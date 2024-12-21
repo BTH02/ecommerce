@@ -24,25 +24,34 @@ class _MyOrderState extends State<MyOrder> {
             height: 35,
             width: 35,
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(50)),
-                border: Border.all(width: 1, color: Colors.black)),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(50),
+              ),
+              border: Border.all(width: 1, color: Colors.black),
+            ),
             child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back)),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back),
+            ),
           ),
           title: const Text('Đơn hàng'),
           centerTitle: true,
           actions: [
             Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.black),
-                    borderRadius: const BorderRadius.all(Radius.circular(50))),
-                child: IconButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, Routes.buildbottom),
-                    icon: const Icon(Icons.home_outlined)))
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.black),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(50),
+                ),
+              ),
+              child: IconButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, Routes.buildbottom),
+                icon: const Icon(Icons.home_outlined),
+              ),
+            )
           ],
           bottom: const TabBar(
             tabs: [

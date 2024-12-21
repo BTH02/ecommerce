@@ -91,11 +91,15 @@ class JacketCategory extends StatelessWidget {
                                               right: 0,
                                               child: IconButton(
                                                 onPressed: () {
-                                                  addProductWishList(FirebaseAuth.instance.currentUser!.uid,product.id);
-                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                  addProductWishList(
+                                                      FirebaseAuth.instance
+                                                          .currentUser!.uid,
+                                                      product.id);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
                                                     const SnackBar(
-                                                        content:
-                                                        Text('Sản phẩm đã được thêm vào yêu thích!')),
+                                                        content: Text(
+                                                            'Sản phẩm đã được thêm vào yêu thích!'),),
                                                   );
                                                 },
                                                 icon: const Icon(

@@ -1,7 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/07/wishlist.dart';
-import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:ecommerce/ui/08/my_cart.dart';
 import 'package:ecommerce/ui/17/chat_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

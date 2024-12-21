@@ -1,4 +1,5 @@
 import 'package:ecommerce/routes/routes.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -154,7 +155,6 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
             ),
           ),
-
           Row(
             children: [
               Checkbox(
@@ -182,11 +182,9 @@ class _CreateAccountState extends State<CreateAccount> {
               String fullName = fullNameController.text;
               User? user =
                   await AuthService().signUpUser(email, password, fullName);
-              if(_formKey.currentState!.validate()){
+              if (_formKey.currentState!.validate()) {
                 if (user != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Tạo tài khoản thành công!')),
-                  );
+                  context.showSnackBarSuccess('Tạo tài khoản thành công!');
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -200,9 +198,10 @@ class _CreateAccountState extends State<CreateAccount> {
                                   onPressed: () => Navigator.pop(context),
                                   child: const Text('Hủy')),
                               ElevatedButton(
-                                  onPressed: () =>
-                                      Navigator.pushNamed(context, Routes.signIn),
-                                  child: const Text('Đồng ý')),
+                                onPressed: () =>
+                                    Navigator.pushNamed(context, Routes.signIn),
+                                child: const Text('Đồng ý'),
+                              ),
                             ],
                           )
                         ],
@@ -210,9 +209,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     },
                   );
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Không thể tạo tài khoản')),
-                  );
+                  context.showSnackBarInfo("Không thể tạo tài khoản");
                 }
               }
             },

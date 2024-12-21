@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 
 class DeleteProductByIdScreen extends StatefulWidget {
@@ -26,23 +27,19 @@ class _DeleteProductByIdScreenState extends State<DeleteProductByIdScreen> {
 
         if (!docSnapshot.exists) {
           // Nếu tài liệu không tồn tại, hiển thị thông báo
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Không tìm thấy ID sản phẩm để xóa!")),
-          );
+          context.showSnackBarInfo("Không tìm thấy ID sản phẩm để xóa!");
+
           return;
         }
 
         // Nếu tài liệu tồn tại, xóa nó
         await products.doc(documentId).delete();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Xóa sản phẩm thành công!!")),
-        );
+        context.showSnackBarInfo("Xóa sản phẩm thành công!!");
+
         _documentIdController.clear(); // Xóa TextField sau khi xóa thành công
       } catch (e) {
         // Hiển thị SnackBar khi xóa thất bại (ví dụ: lỗi kết nối mạng)
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Xóa thất bại: $e")),
-        );
+        context.showSnackBarInfo("Xóa thất bại: $e");
       }
     }
   }

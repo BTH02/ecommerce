@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/admin/view_add_data.dart';
 import 'package:ecommerce/admin/view_delete_data.dart';
 import 'package:ecommerce/admin/view_update_data.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -284,16 +285,9 @@ void _updateOrderStatus(
     await FirebaseFirestore.instance.collection('orders').doc(orderId).update({
       'status': newStatus,
     });
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content:
-          Text('Cập nhật trạng thái đơn hàng thành $newStatus thành công!'),
-      backgroundColor: Colors.green,
-    ));
+    context.showSnackBarSuccess("Xóa sản phẩm thành công!!");
   } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Có lỗi xảy ra: $e'),
-      backgroundColor: Colors.red,
-    ));
+    context.showSnackBarError("Có lỗi xảy ra: $e");
   }
 }
 
