@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:ecommerce/ui/06/product_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -87,12 +88,13 @@ class _ProductHomeState extends State<ProductHome> {
                                   right: 0,
                                   child: IconButton(
                                     onPressed: () {
-                                      addProductWishList(FirebaseAuth.instance.currentUser!.uid, productId);
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content:
-                                            Text('Sản phẩm đã được thêm vào yêu thích!')),
-                                      );
+                                      addProductWishList(
+                                          FirebaseAuth
+                                              .instance.currentUser!.uid,
+                                          productId);
+
+                                      context.showSnackBarInfo(
+                                          "Sản phẩm đã được thêm vào yêu thích!");
                                     },
                                     icon: const Icon(
                                       Icons.favorite,

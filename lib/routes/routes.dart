@@ -4,15 +4,15 @@ import 'package:ecommerce/ui/05/location.dart';
 import 'package:ecommerce/ui/06/bottomnavigation.dart';
 import 'package:ecommerce/ui/06/homepage.dart';
 import 'package:ecommerce/ui/09/add_address.dart';
+import 'package:ecommerce/ui/09/choose_address.dart';
 import 'package:ecommerce/ui/09/choose_ship.dart';
-import 'package:ecommerce/ui/09/chooso_adress.dart';
 import 'package:ecommerce/ui/09/payment.dart';
-import 'package:ecommerce/ui/09/paymentsuccess.dart';
+import 'package:ecommerce/ui/09/payment_success.dart';
 import 'package:ecommerce/ui/11/search.dart';
 import 'package:ecommerce/ui/12/filter.dart';
-import 'package:ecommerce/ui/13/myorder.dart';
-import 'package:ecommerce/ui/13/review/leavereview.dart';
-import 'package:ecommerce/ui/13/review/trackreview.dart';
+import 'package:ecommerce/ui/13/my_order.dart';
+import 'package:ecommerce/ui/13/review/leave_review.dart';
+import 'package:ecommerce/ui/13/review/track_review.dart';
 import 'package:ecommerce/ui/15/dress_category.dart';
 import 'package:ecommerce/ui/15/jacket_category.dart';
 import 'package:ecommerce/ui/15/pant_category.dart';
@@ -24,7 +24,7 @@ import 'package:ecommerce/ui/modal/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/04/createaccount.dart';
+import '../ui/04/create_account.dart';
 import '../ui/04/profile.dart';
 import '../ui/04/sigin.dart';
 
@@ -38,7 +38,7 @@ class Routes {
   static const String buildbottom = '/buildbottom';
   static const String wishList = '/wishList';
   static const String onboard = '/onboard';
-  static const String ship = '/ship';
+  static const String shippingAddress = '/shipping-address';
   static const String chooseship = '/chooseship';
   static const String payment = '/payment';
   static const String paymentSuccess = '/paymentSuccess';
@@ -69,13 +69,15 @@ class Routes {
     buildbottom: (context) => const BuildBottom(),
     location: (context) => const StoreMap(),
     // wishList: (context) => const WishList(userId: FirebaseAuth.instance.currentUser!.uid,),
-    ship: (context) => ShippingAddress(
+    shippingAddress: (context) => ShippingAddress(
           userId: FirebaseAuth.instance.currentUser!.uid,
         ),
     chooseship: (context) => const ChooseShip(),
-    payment: (context) => Payment(
-          userId: FirebaseAuth.instance.currentUser!.uid,
-        ),
+    payment: (context) {
+      final args = (ModalRoute.of(context)?.settings.arguments ?? 0) as double;
+
+      return Payment(totalPrice: args);
+    },
     paymentSuccess: (context) => const PaymentSuccess(),
     filter: (context) => const Filter(),
     myOrder: (context) => const MyOrder(),

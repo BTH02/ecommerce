@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerce/routes/routes.dart';
-import 'package:ecommerce/ui/09/checkout.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,12 +16,17 @@ class ShippingAddress extends StatefulWidget {
 
 class _ShippingAddressState extends State<ShippingAddress> {
   String? _selectedAddress;
-  Future<void> _updateCartWithSelectedAddress(String userId, String address) async {
+
+  Future<void> _updateCartWithSelectedAddress(
+    String userId,
+    String address,
+  ) async {
     final firestore = FirebaseFirestore.instance;
 
     try {
       // Tham chiếu đến subcollection `cart`
-      final cartRef = firestore.collection('users').doc(userId).collection('cart');
+      final cartRef =
+          firestore.collection('users').doc(userId).collection('cart');
 
       // Lấy document `address` từ `cart`
       final addressDoc = cartRef.doc('address');
@@ -40,9 +45,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
       print("Địa chỉ đã được cập nhật thành công!");
     } catch (e) {
       print("Lỗi khi cập nhật địa chỉ trong cart: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Lỗi: $e")),
-      );
+      context.showSnackBarError("Lỗi: $e");
     }
   }
 
@@ -67,8 +70,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
                             const BorderRadius.all(Radius.circular(50)),
                         border: Border.all(width: 1, color: Colors.black)),
                     child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back)),
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back),
+                    ),
                   ),
                   const SizedBox(
                     width: 80,
@@ -197,17 +201,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
             if (_selectedAddress != null) {
               await _updateCartWithSelectedAddress(
                   FirebaseAuth.instance.currentUser!.uid, _selectedAddress!);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CheckOut(
-                        userId: FirebaseAuth.instance.currentUser!.uid,
-                        selectedAddress: _selectedAddress!),
-                  ));
+              Navigator.pop(context, _selectedAddress);
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Vui lòng chọn một địa chỉ!")),
-              );
+              context.showSnackBarInfo("Vui lòng chọn một địa chỉ!");
             }
           },
           child: Center(

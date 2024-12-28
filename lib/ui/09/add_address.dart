@@ -1,3 +1,4 @@
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -27,9 +28,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       await addAddress(
         userId: widget.userId,
         address: _addressController.text,
-
       );
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Thêm địa chỉ thành công!')));
+      context.showSnackBarSuccess('Thêm địa chỉ thành công!');
       Navigator.pop(context); // Đóng màn hình sau khi thêm địa chỉ
     }
   }

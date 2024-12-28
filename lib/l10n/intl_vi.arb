@@ -1,0 +1,8 @@
+{
+  "@@locale": "vi",
+  "hello": "Xin chào",
+  "change_language": "Thay đổi ngôn ngữ",
+  "lbl_payment_process": "Tiến hành thanh toán",
+  "error_unknown": "Lỗi không xác định",
+  "lbl_payment_confirm": "Xác nhận thanh toán"
+}

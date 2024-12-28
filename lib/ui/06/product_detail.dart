@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/ui/08/mycart.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
+import 'package:ecommerce/ui/08/my_cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -65,7 +66,8 @@ class _ProductDetailState extends State<ProductDetail> {
       // Truy vấn kích thước từ collection 'productsale'
       DocumentSnapshot saleSnapshot = await FirebaseFirestore.instance
           .collection('product-sale')
-          .doc(productId)  // Nếu `productId` trùng với tài liệu trong `productsale`
+          .doc(
+              productId) // Nếu `productId` trùng với tài liệu trong `productsale`
           .get();
 
       if (saleSnapshot.exists) {
@@ -75,13 +77,13 @@ class _ProductDetailState extends State<ProductDetail> {
 
       // Loại bỏ kích thước trùng lặp (nếu có)
       sizeList = sizeList.toSet().toList();
-
     } catch (e) {
       print("Lỗi khi lấy danh sách size: $e");
     }
 
     return sizeList;
   }
+
   Future<List<String>> fetchColors(String productId) async {
     List<String> colorList = [];
 
@@ -100,7 +102,8 @@ class _ProductDetailState extends State<ProductDetail> {
       // Truy vấn kích thước từ collection 'productsale'
       DocumentSnapshot saleSnapshot = await FirebaseFirestore.instance
           .collection('product-sale')
-          .doc(productId)  // Nếu `productId` trùng với tài liệu trong `productsale`
+          .doc(
+              productId) // Nếu `productId` trùng với tài liệu trong `productsale`
           .get();
 
       if (saleSnapshot.exists) {
@@ -110,7 +113,6 @@ class _ProductDetailState extends State<ProductDetail> {
 
       // Loại bỏ kích thước trùng lặp (nếu có)
       colorList = colorList.toSet().toList();
-
     } catch (e) {
       print("Lỗi khi lấy danh sách size: $e");
     }
@@ -263,76 +265,96 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                   const Gap(10),
                   const Text('Select Size'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: sizes.map((size) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedSize = size;
-                          });
-                        },
-                        child: Container(
-                          width: 45,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: selectedSize == size
-                                ? Colors.blue
-                                : Colors.grey[300],
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: Center(
-                            child: Text(
-                              size,
-                              style: TextStyle(
-                                color: selectedSize == size
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: 16,
+                  SizedBox(
+                    height: 40,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final size = sizes[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedSize = size;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: selectedSize == size
+                                  ? Colors.blue
+                                  : Colors.grey[300],
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Center(
+                              child: Text(
+                                size,
+                                style: TextStyle(
+                                  color: selectedSize == size
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Gap(12);
+                      },
+                      itemCount: sizes.length,
+                    ),
                   ),
                   const Gap(10),
                   const Text('Select Color:'),
                   const Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: colors.map((color) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedColor = color;
-                          });
-                        },
-                        child: Container(
-                          width: 55,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: selectedColor == color
-                                ? Colors.blue
-                                : Colors.grey[300],
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: Center(
-                            child: Text(
-                              color,
-                              style: TextStyle(
-                                color: selectedColor == color
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: 16,
+                  SizedBox(
+                    height: 40,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final color = colors[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedColor = color;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: selectedColor == color
+                                  ? Colors.blue
+                                  : Colors.grey[300],
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Center(
+                              child: Text(
+                                color,
+                                style: TextStyle(
+                                  color: selectedColor == color
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Gap(12);
+                      },
+                      itemCount: colors.length,
+                    ),
                   ),
                   const Gap(10),
                 ],
@@ -354,8 +376,11 @@ class _ProductDetailState extends State<ProductDetail> {
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back),
@@ -372,8 +397,11 @@ class _ProductDetailState extends State<ProductDetail> {
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
                     child: IconButton(
                       icon: const Icon(Icons.shopping_bag),
                       onPressed: () {
@@ -417,49 +445,43 @@ class _ProductDetailState extends State<ProductDetail> {
                   Text('\$${widget.productData['price'].toString()}'),
                 ],
               ),
-              Container(
-                width: 200,
-                height: 50,
-                decoration: const BoxDecoration(
+              GestureDetector(
+                onTap: () {
+                  if (selectedSize == '' || selectedColor == '') {
+                    context.showSnackBarInfo('Vui lòng chọn size và màu!');
+                  } else {
+                    int quantity = 1;
+                    addToCartWithProductInfo(widget.userId, widget.productId,
+                        quantity, selectedSize, selectedColor);
+                    context.showSnackBarSuccess(
+                      'Thêm vào giỏ hàng thành công!',
+                    );
+                  }
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: const BoxDecoration(
                     color: Colors.brown,
                     borderRadius: BorderRadius.horizontal(
-                        right: Radius.circular(20), left: Radius.circular(20))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.shopping_bag,
-                      color: Colors.white,
+                      right: Radius.circular(20),
+                      left: Radius.circular(20),
                     ),
-                    const Gap(10),
-                    GestureDetector(
-                      onTap: () {
-                        if (selectedSize == '' || selectedColor == '') {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Vui lòng chọn size và màu!')),
-                          );
-                        } else {
-                          int quantity = 1;
-                          addToCartWithProductInfo(
-                              widget.userId,
-                              widget.productId,
-                              quantity,
-                              selectedSize,
-                              selectedColor);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    'Sản phẩm đã được thêm vào giỏ hàng!')),
-                          );
-                        }
-                      },
-                      child: const Text(
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_bag,
+                        color: Colors.white,
+                      ),
+                      Gap(10),
+                      Text(
                         'Thêm vào giỏ hàng',
                         style: TextStyle(color: Colors.white),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],
@@ -475,9 +497,12 @@ Widget buildSize(String textSize) {
     width: 40,
     height: 40,
     decoration: const BoxDecoration(
-        color: Colors.brown,
-        borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(15), left: Radius.circular(15))),
+      color: Colors.brown,
+      borderRadius: BorderRadius.horizontal(
+        right: Radius.circular(15),
+        left: Radius.circular(15),
+      ),
+    ),
     child: Center(
         child: TextButton(
       onPressed: () {},

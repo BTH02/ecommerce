@@ -1,3 +1,4 @@
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -32,13 +33,9 @@ class _SettingPasswordState extends State<SettingPassword> {
         // Thực hiện thay đổi mật khẩu
         await _reauthenticate(currentPassword);
         await _updatePassword(newPassword);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Password updated successfully!")),
-        );
+        context.showSnackBarInfo("Password updated successfully!");
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to update password: $e")),
-        );
+        context.showSnackBarError("Failed to update password: $e");
       }
     }
   }
@@ -144,13 +141,11 @@ class _SettingPasswordState extends State<SettingPassword> {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          if(_formKey.currentState!.validate()){
+                          if (_formKey.currentState!.validate()) {
                             _changePassword();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Đổi mật khẩu thành công!')),
-                            );
+                            context
+                                .showSnackBarInfo("Đổi mật khẩu thành công!");
+
                             _confirmPasswordController.clear();
                             _currentPasswordController.clear();
                             _newPasswordController.clear();

@@ -1,3 +1,4 @@
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:ecommerce/ui/04/sigin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("No user is currently signed in"),
-      ));
+      context.showSnackBarInfo("No user is currently signed in");
       return;
     }
 
@@ -36,9 +35,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
       // Xóa tài khoản người dùng
       await user.delete();
 
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Xóa tài khoản thành công!"),
-      ));
+      context.showSnackBarSuccess("Xóa tài khoản thành công!");
 
       // Sau khi xóa, chuyển hướng người dùng về màn hình đăng nhập hoặc trang khác
       Navigator.pushReplacement(
@@ -47,9 +44,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
             builder: (context) => const SignIn(),
           ));
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Không thể xóa tài khoản: $e"),
-      ));
+      context.showSnackBarInfo("Không thể xóa tài khoản: $e");
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -87,22 +88,23 @@ class PantCategory extends StatelessWidget {
                                             imageUrl: '${product['images'][0]}',
                                           ),
                                           Positioned(
-                                              top: 10,
-                                              right: 0,
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  addProductWishList(FirebaseAuth.instance.currentUser!.uid,product.id);
-                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                    const SnackBar(
-                                                        content:
-                                                        Text('Sản phẩm đã được thêm vào yêu thích!')),
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                ),
-                                              ))
+                                            top: 10,
+                                            right: 0,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                addProductWishList(
+                                                    FirebaseAuth.instance
+                                                        .currentUser!.uid,
+                                                    product.id);
+                                                context.showSnackBarInfo(
+                                                    'Sản phẩm đã được thêm vào yêu thích!');
+                                              },
+                                              icon: const Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),

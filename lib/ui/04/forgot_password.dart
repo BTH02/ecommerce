@@ -1,3 +1,4 @@
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +16,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Future<void> _sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email đặt lại mật khẩu đã được gửi!")),
-      );
+      context.showSnackBarInfo("Email đặt lại mật khẩu đã được gửi!");
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Đã xảy ra lỗi: ${e.toString()}")),
-      );
+      context.showSnackBarError("Đã xảy ra lỗi: ${e.toString()}");
     }
   }
 
@@ -51,9 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 if (email.isNotEmpty) {
                   _sendPasswordResetEmail(email);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Vui lòng nhập email hợp lệ!")),
-                  );
+                  context.showSnackBarInfo("Vui lòng nhập email hợp lệ!");
                 }
               },
               child: const Text("Gửi Email Đặt Lại"),

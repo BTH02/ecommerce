@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/shared/extensions/context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -162,7 +163,7 @@ class FirestoreUpdateDocumentExample extends StatelessWidget {
                         .toList();
                   }
 
-                  if (productId.isNotEmpty  && fieldsToUpdate.isNotEmpty ) {
+                  if (productId.isNotEmpty && fieldsToUpdate.isNotEmpty) {
                     updateProductFields(productId, fieldsToUpdate);
                     _productIdController.clear();
                     _nameController.clear();
@@ -172,11 +173,10 @@ class FirestoreUpdateDocumentExample extends StatelessWidget {
                     _imagesController.clear();
                     _categoryIdController.clear();
                     _describeController.clear();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Dữ liệu đã được cập nhật!')));
-                  }else{
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Vui lòng nhập ID sản phẩm và ít nhất một trường để cập nhật!')));
+                    context.showSnackBarInfo('Dữ liệu đã được cập nhật!');
+                  } else {
+                    context.showSnackBarInfo(
+                        'Vui lòng nhập ID sản phẩm và ít nhất một trường để cập nhật!');
                   }
                 },
                 child: const Text("Sửa sản phẩm"),
